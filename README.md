@@ -12,13 +12,13 @@
 
 O objetivo desse checkpoint é fazer um programa em Python iniciar automaticamente no boot da Raspberry Pi, sem que ninguém precise executar ele manualmente. Para isso, o programa foi registrado como um **serviço do systemd** por meio de um *unit file* (`.service`).
 
-## 2. Aplicação escolhida
+## 2. Montagem
 
 Um **blink de LED** no **GPIO 18**, feito em Python com a biblioteca `RPi.GPIO`. O LED pisca a cada 0,2 s. Ao parar o serviço, um segundo script em Python é executado para garantir que o LED fique apagado.
 
 **Montagem:** Foi utilizado um led no GPIO 18, um resistor, similar ao circuito da Fig. 7 do roteiro. É importante mencionar que durante o vídeo foi mostrado o circuito.
 
-## 3. Arquivos do repositório
+## 3. Arquivos
 
 * **`blink_service.py`**: Código que pisca o LED. É o arquivo executado pelo systemd (`ExecStart`).
 * **`parar_blink.py`**: Código executado ao interromper o serviço (`ExecStop`), responsável por apagar o LED e liberar o pino GPIO.
@@ -102,7 +102,7 @@ No bloco do `[Service]`, a informação que está no ExecStart é o comando exec
 
 No bloco do `[Install]`, o WantedBy=multi-user.target indica que, ao executar systemctl enable, o serviço será ligado ao alvo `multi-user.target`, fazendo ele iniciar sozinho a cada boot. 
 
-## 6. Como foi feito
+## 6. Método
 
 1. Montagem do circuito do LED no GPIO 18 e criação dos códigos blink_service.py e parar_blink.py.
 2. Teste do código, no terminal, encerrando com Ctrl+C:
